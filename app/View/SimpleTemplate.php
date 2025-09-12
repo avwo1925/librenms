@@ -85,7 +85,7 @@ class SimpleTemplate
      */
     private function applyFilters(string $value, string $filterChain): string
     {
-        $filterPattern = '/([a-zA-Z_][a-zA-Z0-9_]*)(?:\((.*)\))?/';
+        $filterPattern = '/([a-zA-Z_][a-zA-Z0-9_]*)(?:\(([^|]*)\))?/';
 
         if (preg_match_all($filterPattern, trim($filterChain, '|'), $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
