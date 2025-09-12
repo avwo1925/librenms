@@ -119,8 +119,9 @@ trait YamlOSDiscovery
 
         $latVal = $this->findFirst($data, $lat, $numeric) ?? null;
         $lngVal = $this->findFirst($data, $lng, $numeric) ?? null;
-
+        
         if (isset($os_yaml['lat_template'])) {
+            Log::debug('lat template is: ', $os_yaml['lat_template']);
             $latVal = trim(SimpleTemplate::parse($os_yaml['lat_template'], $template_data));
         }
 

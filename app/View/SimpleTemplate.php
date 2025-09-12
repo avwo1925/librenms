@@ -85,7 +85,7 @@ class SimpleTemplate
      */
     private function applyFilters(string $value, string $filterChain): string
     {
-        $filterPattern = '/([a-zA-Z_][a-zA-Z0-9_]*)(?:\(([^)]*)\))?/';
+        $filterPattern = '/([a-zA-Z_][a-zA-Z0-9_]*)(?:\((.*)\))?/';
 
         if (preg_match_all($filterPattern, trim($filterChain, '|'), $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
@@ -188,8 +188,8 @@ class SimpleTemplate
 
             // String manipulation
             'replace' => count($args) >= 2 ? str_replace($args[0], $args[1], $value) : $value,
+            'regex_replace' => count($args) >= 2 ? preg_replace($args[0], $args[1], $value, $args[2] ?? -1) : $value,
             'slice' => $this->sliceFilter($value, $args),
-            'split' => count($args) >= 2 ? (explode($args[0], $value)[$args[1]] ?? $value) : $value,
 
             // Encoding/escaping
             'escape' => $this->escapeFilter($value, $args),
